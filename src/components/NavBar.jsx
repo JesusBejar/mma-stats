@@ -1,9 +1,8 @@
 const NavBar = () => {
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-lg font-bold">MMA Stats</div>
-        <ul className="flex space-x-4">
+    <nav>
+      <div>
+        <ul>
           <li>
             <a href="/" className="home-page">
               Home
