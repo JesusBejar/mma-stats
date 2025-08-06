@@ -5,12 +5,20 @@ import React, { useState } from "react";
 const Home = () => {
   const [fighterName, setFighterName] = useState("");
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (fighterName.trim()) {
+      await fighter.getFighterByName(fighterName, API_KEY);
+    }
+  };
+
   return (
     <div>
       <h1>MMA Stats</h1>
       <p>find by:</p>
       <ul>
-        <form onSubmit={(e) => getFighterByName(e)}>
+        <form onSubmit={handleSearch}>
           <li>
             <button>Fighter Name</button>
             <input
