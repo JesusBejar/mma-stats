@@ -3,21 +3,21 @@ import getFighterByName from "../api/fighter";
 import React, { useState } from "react";
 
 const Home = () => {
-  const { fighterName, setFighterName } = useState("");
+  const [fighterName, setFighterName] = useState("");
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
   return (
     <div>
       <h1>MMA Stats</h1>
       <p>find by:</p>
       <ul>
-        <form onSubmit={getFighterByName}>
+        <form onSubmit={(e) => getFighterByName(e)}>
           <li>
             <button>Fighter Name</button>
             <input
               type="text"
               placeholder="Enter fighter name"
               value={fighterName}
-              onChange={setFighterName(e.target.value)}
+              onChange={(e) => setFighterName(e.target.value)}
             />
           </li>
         </form>
