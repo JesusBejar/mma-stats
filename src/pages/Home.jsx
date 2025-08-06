@@ -1,5 +1,4 @@
 import fighter from "../api/fighter";
-import getFighterByName from "../api/fighter";
 import React, { useState } from "react";
 
 const Home = () => {
@@ -20,7 +19,7 @@ const Home = () => {
       <ul>
         <form onSubmit={handleSearch}>
           <li>
-            <button>Fighter Name</button>
+            <button type="button">Fighter Name</button>
             <input
               type="text"
               placeholder="Enter fighter name"
@@ -28,13 +27,15 @@ const Home = () => {
               onChange={(e) => setFighterName(e.target.value)}
             />
           </li>
+          {/* <li>
+            <button type="button">UFC #</button>
+            <input type="text" placeholder="Enter UFC #" />
+          </li> */}
+          <li>
+            <button type="submit">Search</button>
+          </li>
         </form>
-        <li>
-          <button>UFC #</button>
-          <input type="text" placeholder="Enter UFC #" />
-        </li>
       </ul>
-      <button type="submit">Search</button>
     </div>
   );
 };
