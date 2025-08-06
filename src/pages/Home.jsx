@@ -1,8 +1,10 @@
 import fighter from "../api/fighter";
 import React, { useState } from "react";
+import FighterCard from "../components/FighterCard";
 
 const Home = () => {
   const [fighterName, setFighterName] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
 
   const handleSearch = async (e) => {
@@ -36,6 +38,21 @@ const Home = () => {
           </li>
         </form>
       </ul>
+      
+      <div className="search-results">
+        {searchResults.map((fighterData, index) => (
+          <FighterCard 
+            key={index}
+            name={fighterData.Name} 
+            nickname={fighterData.Nickname} 
+            division={fighterData["Division Title"]} 
+            divisionBody={`${fighterData["Division Body"].Wins}W-${fighterData["Division Body"].Losses}L-${fighterData["Division Body"].Draws}D`}
+            hometown={fighterData["Fighter Bio"].Hometown} 
+            height={`Height ${fighterData["Fighter Bio"].Height}`} 
+            weight={`Weight ${fighterData["Fighter Bio"].Weight}`} 
+          />
+        ))}
+      </div>
     </div>
   );
 };
