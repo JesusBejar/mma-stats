@@ -10,7 +10,20 @@ const Home = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     if (fighterName.trim()) {
-      await fighter.getFighterByName(fighterName, API_KEY);
+      const result = await fighter.getFighterByName(fighterName, API_KEY);      
+      if (result && result !== "undefined") {
+        try {
+          const parsedResult = JSON.parse(result);
+          setSearchResults(parsedResult);
+        } catch (parseError) {
+          console.error("error parsing data:", parseError);
+          console.error("raw response:", result);
+          setSearchResults([]);
+        }
+      } else {
+        console.error("no data received from API");
+        setSearchResults([]);
+      }
     }
   };
 
