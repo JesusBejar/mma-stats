@@ -1,30 +1,31 @@
 import { Component, useState } from "react";
 import Home from "./pages/Home";
-import "./App.css";
 import NavBar from "./components/NavBar";
+import FightCard from "./components/FighterCard";
+import "./App.css";
 
 const App = () => {
-  let Component;
+  let component;
   switch (window.location.pathname) {
-    case "/home":
+    case "/":
       document.title = "Home";
-      Component = Home;
+      component = <Home />;
       break;
     case "/fighters":
       document.title = "Fighters";
-      Component = FightCard;
+      component = <FighterCard />;
       break;
-    case "/events":
-      document.title = "UFC Events";
-      Component = UFCCard;
-      break;
+    // case "/events":
+    //   document.title = "UFC Events";
+    //   Component = UFCCard;
+    //   break;
     default:
       document.title = "MMA Stats";
   }
   return (
     <>
       <NavBar />
-      <Component />
+      <div>{component}</div>
     </>
   );
 };
