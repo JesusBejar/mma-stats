@@ -11,9 +11,10 @@ const getUFCEvent = async (API_KEY) => {
   try {
     const response = await fetch(url, options);
     const result = await response.text();
-    console.log(result);
+    return result;
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
@@ -31,8 +32,10 @@ const getFighterByName = async (name, API_KEY) => {
     const response = await fetch(url, options);
     const result = await response.text();
     console.log(result);
+    return result;
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
