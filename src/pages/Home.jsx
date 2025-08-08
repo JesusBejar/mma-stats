@@ -71,6 +71,23 @@ const Home = () => {
           </li>
         </ul>
       </form>
+
+      <form className="search-form" onSubmit={handleUFCSearch}>
+        <ul>
+          <li>
+            <button type="button">UFC #</button>
+            <input
+              type="text"
+              placeholder="Enter UFC event number"
+              value={ufcNumber}
+              onChange={(e) => setUfcNumber(e.target.value)}
+            />
+          </li>
+          <li>
+            <button type="submit">Search</button>
+          </li>
+        </ul>
+      </form>
       
       <div className="search-results">
         {searchResults.map((fighterData, index) => (
