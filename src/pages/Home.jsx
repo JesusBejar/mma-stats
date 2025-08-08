@@ -53,6 +53,7 @@ const Home = () => {
         {searchResults.map((fighterData, index) => (
           <FighterCard 
             key={index}
+            img={fighterData["Image Link"]}
             name={fighterData.Name} 
             nickname={fighterData.Nickname} 
             division={fighterData["Division Title"]} 
