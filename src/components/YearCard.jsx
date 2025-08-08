@@ -1,4 +1,4 @@
-const UFCCard = ({ fighter1, fighter2, date }) => {
+const YearCard = ({ fighter1, fighter2, date }) => {
   return (
     <div className="ufc-fight-card">
       <div className="fight-date">{date}</div>
@@ -11,5 +11,5 @@ const UFCCard = ({ fighter1, fighter2, date }) => {
   );
 };
 
-export default UFCCard;
+export default YearCard;
 

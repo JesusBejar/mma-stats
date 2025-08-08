@@ -1,7 +1,7 @@
 import fighter from "../api/fighter";
 import React, { useState } from "react";
 import FighterCard from "../components/FighterCard";
-import UFCCard from "../components/UFCCard";
+import YearCard from "../components/YearCard";
 
 const Home = () => {
   const [fighterName, setFighterName] = useState("");
@@ -33,7 +33,7 @@ const Home = () => {
   const handleYearSearch = async (e) => {
     e.preventDefault();
     if (year.trim()) {
-      const result = await fighter.getUFCEvent(year, API_KEY);      
+      const result = await fighter.getUFCYear(year, API_KEY);      
       if (result && result !== "undefined") {
         try {
           const parsedResult = JSON.parse(result);
@@ -72,22 +72,22 @@ const Home = () => {
         </ul>
       </form>
 
-      <form className="search-form" onSubmit={handleUFCSearch}>
-        <ul>
-          <li>
-            <button type="button">UFC #</button>
-            <input
-              type="text"
-              placeholder="Enter UFC event number"
-              value={ufcNumber}
-              onChange={(e) => setUfcNumber(e.target.value)}
-            />
-          </li>
-          <li>
-            <button type="submit">Search</button>
-          </li>
-        </ul>
-      </form>
+             <form className="search-form" onSubmit={handleYearSearch}>
+         <ul>
+           <li>
+             <button type="button">Year</button>
+             <input
+               type="text"
+               placeholder="Enter year (e.g., 2024)"
+               value={year}
+               onChange={(e) => setYear(e.target.value)}
+             />
+           </li>
+           <li>
+             <button type="submit">Search</button>
+           </li>
+         </ul>
+       </form>
       
       <div className="search-results">
         {searchResults.map((fighterData, index) => (
@@ -109,7 +109,7 @@ const Home = () => {
          {yearResults.map((eventDate) =>
            Object.entries(eventDate).map(([date, fights]) =>
              fights.map((fight, fightIndex) => (
-               <UFCCard 
+               <YearCard 
                  key={`${date}-${fightIndex}`}
                  fighter1={fight.matchup[0]}
                  fighter2={fight.matchup[1]}

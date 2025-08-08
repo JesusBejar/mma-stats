@@ -17,7 +17,7 @@ const App = () => {
       break;
     // case "/events":
     //   document.title = "UFC Events";
-    //   Component = UFCCard;
+    //   Component = YearCard;
     //   break;
     default:
       document.title = "MMA Stats";
