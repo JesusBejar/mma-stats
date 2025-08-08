@@ -12,8 +12,14 @@ const Home = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (fighterName.trim()) {
-      const result = await fighter.getFighterByName(fighterName, API_KEY);      
+    if (!searchValue.trim()) return;
+
+    // Clear previous results
+    setSearchResults([]);
+    setYearResults([]);
+
+    if (searchType === "fighter") {
+      const result = await fighter.getFighterByName(searchValue, API_KEY);      
       if (result && result !== "undefined") {
         try {
           const parsedResult = JSON.parse(result);
@@ -27,13 +33,8 @@ const Home = () => {
         console.error("no data received from API");
         setSearchResults([]);
       }
-    }
-  };
-
-  const handleYearSearch = async (e) => {
-    e.preventDefault();
-    if (year.trim()) {
-      const result = await fighter.getUFCYear(year, API_KEY);      
+    } else if (searchType === "year") {
+      const result = await fighter.getUFCYear(searchValue, API_KEY);      
       if (result && result !== "undefined") {
         try {
           const parsedResult = JSON.parse(result);
