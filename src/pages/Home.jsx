@@ -4,9 +4,9 @@ import FighterCard from "../components/FighterCard";
 import YearCard from "../components/YearCard";
 
 const Home = () => {
-  const [fighterName, setFighterName] = useState("");
+  const [searchType, setSearchType] = useState("fighter"); // "fighter" or "year"
+  const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [year, setYear] = useState("");
   const [yearResults, setYearResults] = useState([]);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
 
