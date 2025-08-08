@@ -30,6 +30,26 @@ const Home = () => {
     }
   };
 
+  const handleUFCSearch = async (e) => {
+    e.preventDefault();
+    if (ufcNumber.trim()) {
+      const result = await fighter.getUFCEvent(ufcNumber, API_KEY);      
+      if (result && result !== "undefined") {
+        try {
+          const parsedResult = JSON.parse(result);
+          setUfcResults([parsedResult]); // Wrap in array since it's a single event
+        } catch (parseError) {
+          console.error("error parsing UFC data:", parseError);
+          console.error("raw response:", result);
+          setUfcResults([]);
+        }
+      } else {
+        console.error("no UFC data received from API");
+        setUfcResults([]);
+      }
+    }
+  };
+
   return (
     <div className="home-container">
       <h1>MMA Stats</h1>
