@@ -4,17 +4,18 @@ import FighterCard from "../components/FighterCard";
 import YearCard from "../components/YearCard";
 
 const Home = () => {
-  const [searchType, setSearchType] = useState("fighter"); // "fighter" or "year"
+  const [searchType, setSearchType] = useState("fighter"); // name or year
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [yearResults, setYearResults] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!searchValue.trim()) return;
-
-    // Clear previous results
+    
+    setErrorMessage("");
     setSearchResults([]);
     setYearResults([]);
 
