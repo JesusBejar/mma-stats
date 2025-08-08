@@ -1,10 +1,13 @@
 import fighter from "../api/fighter";
 import React, { useState } from "react";
 import FighterCard from "../components/FighterCard";
+import UFCCard from "../components/UFCCard";
 
 const Home = () => {
   const [fighterName, setFighterName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [ufcNumber, setUfcNumber] = useState("");
+  const [ufcResults, setUfcResults] = useState([]);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
 
   const handleSearch = async (e) => {
