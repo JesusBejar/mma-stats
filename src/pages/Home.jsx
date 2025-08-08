@@ -104,6 +104,21 @@ const Home = () => {
           />
         ))}
       </div>
+
+             <div className="year-results">
+         {yearResults.map((eventDate) =>
+           Object.entries(eventDate).map(([date, fights]) =>
+             fights.map((fight, fightIndex) => (
+               <UFCCard 
+                 key={`${date}-${fightIndex}`}
+                 fighter1={fight.matchup[0]}
+                 fighter2={fight.matchup[1]}
+                 date={date.replace(/_/g, ' ')}
+               />
+             ))
+           )
+         ).flat().flat()}
+       </div>
     </div>
   );
 };
