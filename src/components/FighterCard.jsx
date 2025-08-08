@@ -1,4 +1,16 @@
+import React, { useState, useEffect } from "react";
+
 const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, height, weight }) => {
+ const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    const savedFighters = JSON.parse(localStorage.getItem('savedFighters') || '[]');
+    const isAlreadySaved = savedFighters.some(fighter => 
+      fighter.Name === name && fighter.Nickname === nickname
+    );
+    setIsSaved(isAlreadySaved);
+  }, [name, nickname]);
+
   const toggleSave = () => {
     const savedFighters = JSON.parse(localStorage.getItem('savedFighters') || '[]');
     
@@ -31,6 +43,25 @@ const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, he
     }
   };
  
+  return (
+    <div className="fighter-card">
+      <button 
+        className={`save-star ${isSaved ? 'saved' : ''}`}
+        onClick={toggleSave}
+        title={isSaved ? "Remove from saved" : "Save fighter"}
+      >
+        ★
+      </button>
+      <img src={img} alt={name} />
+      <h1>{name}</h1>
+      <h5>{nickname}</h5>
+      <h3>{division}</h3>
+      <h2>{divisionBody}</h2>
+      <h5>{hometown}</h5>
+      <p>{height}</p>
+      <p>{weight}</p>
+    </div>
+  );
 };
 
 export default FighterCard;

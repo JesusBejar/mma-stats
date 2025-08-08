@@ -1,4 +1,16 @@
+import React, { useState, useEffect } from "react";
+
 const YearCard = ({ fighter1, fighter2, date }) => {
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    const savedFights = JSON.parse(localStorage.getItem('savedFights') || '[]');
+    const isAlreadySaved = savedFights.some(fight => 
+      fight.fighter1 === fighter1 && fight.fighter2 === fighter2 && fight.date === date
+    );
+    setIsSaved(isAlreadySaved);
+  }, [fighter1, fighter2, date]);
+
   const toggleSave = () => {
     const savedFights = JSON.parse(localStorage.getItem('savedFights') || '[]');
     
@@ -19,8 +31,16 @@ const YearCard = ({ fighter1, fighter2, date }) => {
       setIsSaved(true);
     }
   };
+
   return (
     <div className="ufc-fight-card">
+      <button 
+        className={`save-star ${isSaved ? 'saved' : ''}`}
+        onClick={toggleSave}
+        title={isSaved ? "Remove from saved" : "Save fight"}
+      >
+        ★
+      </button>
       <div className="fight-date">{date}</div>
       <div className="fighter-names">
         <span className="fighter">{fighter1}</span>
