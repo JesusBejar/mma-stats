@@ -11,14 +11,14 @@ const App = () => {
       document.title = "Home";
       component = <Home />;
       break;
-    case "/fighters":
-      document.title = "Fighters";
-      component = <FighterCard />;
+    case "/savedFighters":
+      document.title = "Saved Fighters";
+      component = <SavedFighters />;
       break;
-    // case "/events":
-    //   document.title = "UFC Events";
-    //   Component = YearCard;
-    //   break;
+      case "/savedFights":
+        document.title = "Saved Fights";
+        component = <SavedFights />;
+        break;
     default:
       document.title = "MMA Stats";
   }

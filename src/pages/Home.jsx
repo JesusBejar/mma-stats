@@ -185,7 +185,7 @@ const Home = () => {
 
       {isLoading && (
         <div className="loading-message">
-          <p>🔍 Searching for {searchType === "fighter" ? "fighter" : "events"}...</p>
+          <p>Searching for {searchType === "fighter" ? "fighter" : "events"}...</p>
         </div>
       )}
       
@@ -199,8 +199,8 @@ const Home = () => {
             division={fighterData["Division Title"]} 
             divisionBody={`${fighterData["Division Body"].Wins}W-${fighterData["Division Body"].Losses}L-${fighterData["Division Body"].Draws}D`}
             hometown={fighterData["Fighter Bio"].Hometown} 
-            height={`Height ${fighterData["Fighter Bio"].Height}`} 
-            weight={`Weight ${fighterData["Fighter Bio"].Weight}`} 
+            height={`Height ${fighterData["Fighter Bio"].Height} in`} 
+            weight={`Weight ${fighterData["Fighter Bio"].Weight} lbs`} 
           />
         ))}
       </div>
