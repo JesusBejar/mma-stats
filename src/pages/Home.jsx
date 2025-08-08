@@ -28,11 +28,12 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="home-container">
       <h1>MMA Stats</h1>
-      <p>find by:</p>
-      <ul>
-        <form onSubmit={handleSearch}>
+      <p className="p-description">Find your favorite fighters and their stats!</p>
+      
+      <form className="search-form" onSubmit={handleSearch}>
+        <ul>
           <li>
             <button type="button">Fighter Name</button>
             <input
@@ -42,15 +43,11 @@ const Home = () => {
               onChange={(e) => setFighterName(e.target.value)}
             />
           </li>
-          {/* <li>
-            <button type="button">UFC #</button>
-            <input type="text" placeholder="Enter UFC #" />
-          </li> */}
           <li>
             <button type="submit">Search</button>
           </li>
-        </form>
-      </ul>
+        </ul>
+      </form>
       
       <div className="search-results">
         {searchResults.map((fighterData, index) => (
