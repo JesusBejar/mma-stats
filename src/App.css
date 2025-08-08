@@ -49,8 +49,35 @@ nav a:hover {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
+.home-container h1 {
+  font-size: 3rem;
+  color: #dc2626;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.home-container p {
+  font-size: 1.2rem;
+  color: black;
+  margin-bottom: 2rem;
+}
+
+
+
+/* search input styles */
+.search-form {
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 2px solid #dc2626;
+}
+
+.search-form ul {
+  list-style: none;
+  margin: 0;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
