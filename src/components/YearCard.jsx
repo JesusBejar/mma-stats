@@ -1,4 +1,24 @@
 const YearCard = ({ fighter1, fighter2, date }) => {
+  const toggleSave = () => {
+    const savedFights = JSON.parse(localStorage.getItem('savedFights') || '[]');
+    
+    if (isSaved) {
+      const updatedFights = savedFights.filter(fight => 
+        !(fight.fighter1 === fighter1 && fight.fighter2 === fighter2 && fight.date === date)
+      );
+      localStorage.setItem('savedFights', JSON.stringify(updatedFights));
+      setIsSaved(false);
+    } else {
+      const fightToSave = {
+        fighter1,
+        fighter2,
+        date
+      };
+      savedFights.push(fightToSave);
+      localStorage.setItem('savedFights', JSON.stringify(savedFights));
+      setIsSaved(true);
+    }
+  };
   return (
     <div className="ufc-fight-card">
       <div className="fight-date">{date}</div>
