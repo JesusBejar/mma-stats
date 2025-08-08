@@ -128,23 +128,107 @@ nav a:hover {
   color: #666;
 }
 
+.search-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-toggle button {
+  background: #3a3a3a;
+  color: #ffffff;
+  border: 2px solid #555;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-toggle button:hover {
+  background: #4a4a4a;
+  border-color: #dc2626;
+}
+
+.search-toggle button.active {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  border-color: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.search-form button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error-message {
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 2px solid #dc2626;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.error-message p {
+  color: #dc2626;
+  font-weight: 600;
+  margin: 0;
+}
+
+.loading-message {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.loading-message p {
+  color: #ffffff;
+  font-weight: 600;
+  margin: 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 /* fighter card styles */
 .search-results {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.5rem;
   margin-top: 2rem;
 }
 
 .fighter-card {
   background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
   border: 2px solid #dc2626;
-  border-radius: 15px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
   text-align: center;
+}
+
+.fighter-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  margin-bottom: 0.5rem;
+  border: 2px solid #dc2626;
 }
 
 .fighter-card:hover {
@@ -155,37 +239,37 @@ nav a:hover {
 
 .fighter-card h1 {
   color: #dc2626;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .fighter-card h5 {
   color: #ffffff;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
   font-style: italic;
 }
 
 .fighter-card h3 {
   color: #f0f0f0;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
 }
 
 .fighter-card h2 {
   color: #dc2626;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
   font-weight: bold;
 }
 
 .fighter-card p {
   color: #cccccc;
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-  padding: 0.25rem 0;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem 0;
 }
 
 /* year event card styles */
@@ -242,6 +326,18 @@ nav a:hover {
 }
 
 /* ===== additional styles ===== */
+@media (max-width: 1200px) {
+  .search-results {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .search-results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;
@@ -263,6 +359,11 @@ nav a:hover {
   }
   
   .search-results {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  
+  .year-results {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
