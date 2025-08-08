@@ -1,13 +1,13 @@
 const getUFCYear = async (year, API_KEY) => {
-  const url = `https://mma-stats.p.rapidapi.com/fights_by_year?year=${year}`;
+  const url = `https://mma-stats.p.rapidapi.com/fights_by_year?year=${year}&month=`;
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': '9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14',
+      'x-rapidapi-key': API_KEY,
       'x-rapidapi-host': 'mma-stats.p.rapidapi.com'
     }
   };
-  
+
   try {
     const response = await fetch(url, options);
     const result = await response.text();
@@ -15,6 +15,7 @@ const getUFCYear = async (year, API_KEY) => {
     return result;
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
@@ -40,6 +41,6 @@ const getFighterByName = async (name, API_KEY) => {
 };
 
 export default {
-  getUFCEvent,
+  getUFCYear,
   getFighterByName,
 };
