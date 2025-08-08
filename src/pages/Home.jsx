@@ -4,13 +4,45 @@ import FighterCard from "../components/FighterCard";
 import YearCard from "../components/YearCard";
 
 const Home = () => {
-  const [searchType, setSearchType] = useState("fighter"); // name or year
+  const [searchType, setSearchType] = useState("fighter");
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [yearResults, setYearResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
+
+  const validateInput = (value, type) => {
+    if (!value || !value.trim()) {
+      return `Enter a ${type} to search for`;
+    }
+
+    if (type === "fighter") {
+      if (value.trim().length < 2) {
+        return "Name must be at least 2 characters long";
+      }
+    }
+
+    if (type === "year") {
+      const yearNum = parseInt(value.trim());
+      const currentYear = new Date().getFullYear();
+      
+      if (isNaN(yearNum)) {
+        return "Year must be a valid #";
+      }
+      if (yearNum < 1993) {
+        return "UFC started in 1993, enter a year from 1993 onwards";
+      }
+      if (yearNum > currentYear) {
+        return `Year cannot be in the future, enter a year up to ${currentYear}`;
+      }
+      if (value.trim().length !== 4) {
+        return "Enter a 4-digit year";
+      }
+    }
+
+    return null;
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -19,36 +51,82 @@ const Home = () => {
     setSearchResults([]);
     setYearResults([]);
 
-    if (searchType === "fighter") {
-      const result = await fighter.getFighterByName(searchValue, API_KEY);      
-      if (result && result !== "undefined") {
+    // Validate input
+    const validationError = validateInput(searchValue, searchType);
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      if (searchType === "fighter") {
+        const result = await fighter.getFighterByName(searchValue.trim(), API_KEY);
+        
+        if (!result || result === "undefined") {
+          const errorMsg = `No fighter found with the name "${searchValue.trim()}"`;
+          setErrorMessage(errorMsg);
+          return;
+        }
+
         try {
           const parsedResult = JSON.parse(result);
+          if (Array.isArray(parsedResult) && parsedResult.length === 0) {
+            const errorMsg = `No results found for name "${searchValue.trim()}"`;
+            setErrorMessage(errorMsg);
+            return;
+          }
+          
           setSearchResults(parsedResult);
+          
         } catch (parseError) {
-          console.error("error parsing data:", parseError);
-          console.error("raw response:", result);
-          setSearchResults([]);
+          const errorMsg = "Failed to process fighter data from server";
+          setErrorMessage(errorMsg);
         }
-      } else {
-        console.error("no data received from API");
-        setSearchResults([]);
-      }
-    } else if (searchType === "year") {
-      const result = await fighter.getUFCYear(searchValue, API_KEY);      
-      if (result && result !== "undefined") {
+
+      } else if (searchType === "year") {
+        const result = await fighter.getUFCYear(searchValue.trim(), API_KEY);
+        
+        if (!result || result === "undefined") {
+          const errorMsg = `No UFC events found for the year ${searchValue.trim()}`;
+          setErrorMessage(errorMsg);
+          return;
+        }
+
         try {
           const parsedResult = JSON.parse(result);
-          setYearResults(Array.isArray(parsedResult) ? parsedResult : [parsedResult]);
+          const processedResults = Array.isArray(parsedResult) ? parsedResult : [parsedResult];
+          
+          const hasEvents = processedResults.some(yearData => 
+            Object.keys(yearData).length > 0 && 
+            Object.values(yearData).some(events => Array.isArray(events) && events.length > 0)
+          );
+
+          if (!hasEvents) {
+            const errorMsg = `No fights found for the year ${searchValue.trim()}`;
+            setErrorMessage(errorMsg);
+            return;
+          }
+          
+          setYearResults(processedResults);
+          
+          let totalFights = 0;
+          processedResults.forEach(yearData => {
+            Object.values(yearData).forEach(events => {
+              if (Array.isArray(events)) totalFights += events.length;
+            });
+          });
         } catch (parseError) {
-          console.error("error parsing year data:", parseError);
-          console.error("raw response:", result);
-          setYearResults([]);
+          const errorMsg = "Could not process year data from server";
+          setErrorMessage(errorMsg);
         }
-      } else {
-        console.error("no year data received from API");
-        setYearResults([]);
       }
+
+    } catch (networkError) {
+      const errorMsg = "Network error, check your internet connection";
+      setErrorMessage(errorMsg);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -92,27 +170,24 @@ const Home = () => {
             />
           </li>
           <li>
-            <button type="submit">Search</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Searching..." : "Search"}
+            </button>
           </li>
         </ul>
       </form>
 
-             <form className="search-form" onSubmit={handleYearSearch}>
-         <ul>
-           <li>
-             <button type="button">Year</button>
-             <input
-               type="text"
-               placeholder="Enter year (e.g., 2024)"
-               value={year}
-               onChange={(e) => setYear(e.target.value)}
-             />
-           </li>
-           <li>
-             <button type="submit">Search</button>
-           </li>
-         </ul>
-       </form>
+      {errorMessage && (
+        <div className="error-message">
+          <p>⚠️ {errorMessage}</p>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="loading-message">
+          <p>🔍 Searching for {searchType === "fighter" ? "fighter" : "events"}...</p>
+        </div>
+      )}
       
       <div className="search-results">
         {searchResults.map((fighterData, index) => (
