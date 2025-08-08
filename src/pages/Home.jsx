@@ -6,8 +6,8 @@ import UFCCard from "../components/UFCCard";
 const Home = () => {
   const [fighterName, setFighterName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [ufcNumber, setUfcNumber] = useState("");
-  const [ufcResults, setUfcResults] = useState([]);
+  const [year, setYear] = useState("");
+  const [yearResults, setYearResults] = useState([]);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
 
   const handleSearch = async (e) => {
@@ -30,22 +30,22 @@ const Home = () => {
     }
   };
 
-  const handleUFCSearch = async (e) => {
+  const handleYearSearch = async (e) => {
     e.preventDefault();
-    if (ufcNumber.trim()) {
-      const result = await fighter.getUFCEvent(ufcNumber, API_KEY);      
+    if (year.trim()) {
+      const result = await fighter.getUFCEvent(year, API_KEY);      
       if (result && result !== "undefined") {
         try {
           const parsedResult = JSON.parse(result);
-          setUfcResults([parsedResult]); // Wrap in array since it's a single event
+          setYearResults(Array.isArray(parsedResult) ? parsedResult : [parsedResult]);
         } catch (parseError) {
-          console.error("error parsing UFC data:", parseError);
+          console.error("error parsing year data:", parseError);
           console.error("raw response:", result);
-          setUfcResults([]);
+          setYearResults([]);
         }
       } else {
-        console.error("no UFC data received from API");
-        setUfcResults([]);
+        console.error("no year data received from API");
+        setYearResults([]);
       }
     }
   };
