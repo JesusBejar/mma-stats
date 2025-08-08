@@ -1,5 +1,5 @@
-const getUFCEvent = async (API_KEY) => {
-  const url = "https://mma-stats.p.rapidapi.com/fights_by_year?year=2024";
+const getUFCEvent = async (ufcNumber, API_KEY) => {
+  const url = `https://mma-stats.p.rapidapi.com/ufc_event?ufc=${ufcNumber}`;
   const options = {
     method: "GET",
     headers: {
