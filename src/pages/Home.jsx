@@ -60,12 +60,35 @@ const Home = () => {
       <form className="search-form" onSubmit={handleSearch}>
         <ul>
           <li>
-            <button type="button">Fighter Name</button>
+            <div className="search-toggle">
+              <button 
+                type="button" 
+                className={searchType === "fighter" ? "active" : ""}
+                onClick={() => {
+                  setSearchType("fighter");
+                  setSearchValue("");
+                }}
+              >
+                Fighter Name
+              </button>
+              <button 
+                type="button" 
+                className={searchType === "year" ? "active" : ""}
+                onClick={() => {
+                  setSearchType("year");
+                  setSearchValue("");
+                }}
+              >
+                Year
+              </button>
+            </div>
+          </li>
+          <li>
             <input
               type="text"
-              placeholder="Enter fighter name"
-              value={fighterName}
-              onChange={(e) => setFighterName(e.target.value)}
+              placeholder={searchType === "fighter" ? "Enter fighter name" : "Enter year (e.g., 2024)"}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
           </li>
           <li>
