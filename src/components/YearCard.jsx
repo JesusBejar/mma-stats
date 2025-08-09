@@ -8,6 +8,7 @@ import {
 
 const YearCard = ({ fighter1, fighter2, date }) => {
   const [isSaved, setIsSaved] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const savedFights = JSON.parse(localStorage.getItem('savedFights') || '[]');
@@ -44,12 +45,15 @@ const YearCard = ({ fighter1, fighter2, date }) => {
   return (
     <div className="ufc-fight-card">
       <button 
-        className={`save-star ${isSaved ? 'saved' : ''} ${isLoading ? 'loading' : ''}`}
+        className={`save-star ${isSaved ? "saved" : ""} ${
+isLoading ? "loading" : ""
+}`}
         onClick={toggleSave}
         disabled={isLoading}
-        title={isLoading ? "Saving..." : (isSaved ? "Remove from saved" : "Save fight")}
-      >
-      </button>
+        title={
+isLoading ? "Saving..." : isSaved ? "Remove from saved" : "Save fight"
+}
+      >      </button>
       <div className="fight-date">{date}</div>
       <div className="fighter-names">
         <span className="fighter">{fighter1}</span>

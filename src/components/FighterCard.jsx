@@ -8,6 +8,7 @@ import {
 
 const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, height, weight }) => {
  const [isSaved, setIsSaved] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const savedFighters = JSON.parse(localStorage.getItem('savedFighters') || '[]');
@@ -17,8 +18,10 @@ const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, he
     setIsSaved(isAlreadySaved);
   }, [name, nickname]);
 
-  const toggleSave = () => {
-    const savedFighters = JSON.parse(localStorage.getItem('savedFighters') || '[]');
+  const toggleSave = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
     
     if (isSaved) {
       const updatedFighters = savedFighters.filter(fighter => 
@@ -56,10 +59,18 @@ const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, he
   return (
     <div className="fighter-card">
       <button 
-        className={`save-star ${isSaved ? 'saved' : ''} ${isLoading ? 'loading' : ''}`}
+        className={`save-star ${isSaved ? "saved" : ""} ${
+isLoading ? "loading" : ""
+}`}
         onClick={toggleSave}
         disabled={isLoading}
-        title={isLoading ? "Saving..." : (isSaved ? "Remove from saved" : "Save fighter")}
+        title={
+isLoading
+? "Saving..."
+            : isSaved
+? "Remove from saved"
+: "Save fighter"
+}
       >
         {isLoading ? "⏳" : ""}
       </button>
