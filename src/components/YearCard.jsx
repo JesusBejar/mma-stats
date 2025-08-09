@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import {
+  saveFight,
+  deleteFight,
+  isFightSaved,
+  getSavedFights,
+} from "../services/database";
 
 const YearCard = ({ fighter1, fighter2, date }) => {
   const [isSaved, setIsSaved] = useState(false);

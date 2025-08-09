@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import {
+  saveFighter,
+  deleteFighter,
+  isFighterSaved,
+  getSavedFighters,
+} from "../services/database";
 
 const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, height, weight }) => {
  const [isSaved, setIsSaved] = useState(false);
