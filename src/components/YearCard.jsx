@@ -6,54 +6,60 @@ import {
   getSavedFights,
 } from "../services/database";
 
-const YearCard = ({ fighter1, fighter2, date }) => {
+const YearCard = ({ fighter1, fighter2, date, onRemove }) => {
   const [isSaved, setIsSaved] = useState(false);
-const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const savedFights = JSON.parse(localStorage.getItem('savedFights') || '[]');
-    const isAlreadySaved = savedFights.some(fight => 
-      fight.fighter1 === fighter1 && fight.fighter2 === fighter2 && fight.date === date
-    );
-    setIsSaved(isAlreadySaved);
+    checkIfSaved();
   }, [fighter1, fighter2, date]);
 
-  const toggleSave = () => {
-    const savedFights = JSON.parse(localStorage.getItem('savedFights') || '[]');
-    
+  const checkIfSaved = async () => {
+    if (!fighter1 || !fighter2 || !date) return;
+    const saved = await isFightSaved(fighter1, fighter2, date);
+    setIsSaved(saved);
+  };
+
+  const toggleSave = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
     if (isSaved) {
-      const updatedFights = savedFights.filter(fight => 
-        !(fight.fighter1 === fighter1 && fight.fighter2 === fighter2 && fight.date === date)
+      const { data: fights } = await getSavedFights();
+      const fight = fights?.find(
+        (f) => f.matchup === `${fighter1} vs ${fighter2}` && f.date === date
       );
-      localStorage.setItem('savedFights', JSON.stringify(updatedFights));
-      setIsSaved(false);
+      if (fight) {
+        const { error } = await deleteFight(fight.id);
+        if (!error) {
+          setIsSaved(false);
+          if (onRemove) onRemove();
+        }
+      }
     } else {
-      const fightToSave = {
-        fighter1,
-        fighter2,
-        date
-      };
+      const fightData = { fighter1, fighter2, date };
       const { error } = await saveFight(fightData);
       if (!error) {
         setIsSaved(true);
       }
     }
-    
+
     setIsLoading(false);
   };
 
   return (
     <div className="ufc-fight-card">
-      <button 
+      <button
         className={`save-star ${isSaved ? "saved" : ""} ${
-isLoading ? "loading" : ""
-}`}
+          isLoading ? "loading" : ""
+        }`}
         onClick={toggleSave}
         disabled={isLoading}
         title={
-isLoading ? "Saving..." : isSaved ? "Remove from saved" : "Save fight"
-}
-      >      </button>
+          isLoading ? "Saving..." : isSaved ? "Remove from saved" : "Save fight"
+        }
+      ></button>
       <div className="fight-date">{date}</div>
       <div className="fighter-names">
         <span className="fighter">{fighter1}</span>
@@ -65,4 +71,3 @@ isLoading ? "Saving..." : isSaved ? "Remove from saved" : "Save fight"
 };
 
 export default YearCard;
-
