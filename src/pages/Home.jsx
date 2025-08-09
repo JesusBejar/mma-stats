@@ -1,7 +1,8 @@
 import fighter from "../api/fighter";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FighterCard from "../components/FighterCard";
 import YearCard from "../components/YearCard";
+import { checkTables } from "../services/setup";
 
 const Home = () => {
   const [searchType, setSearchType] = useState("fighter");
@@ -11,6 +12,11 @@ const Home = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const API_KEY = "9fa47c65e6msh6013516bc42c8bbp177bd0jsnfe677f674a14";
+
+  useEffect(() => {
+    // call if-check on database
+    checkTables();
+  }, []);
 
   const validateInput = (value, type) => {
     if (!value || !value.trim()) {
