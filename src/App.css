@@ -62,8 +62,6 @@ nav a:hover {
   margin-bottom: 2rem;
 }
 
-
-
 /* search input styles */
 .search-form {
   background-color: #2a2a2a;
@@ -199,12 +197,12 @@ nav a:hover {
 
 @keyframes pulse {
   0%,
-100% {
-opacity: 1;
-}
+  100% {
+    opacity: 1;
+  }
   50% {
-opacity: 0.5;
-}
+    opacity: 0.5;
+  }
 }
 
 /* fighter card styles */
@@ -253,7 +251,7 @@ opacity: 0.5;
   transition: all 0.3s ease;
   z-index: 10;
   padding: 0;
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -526,28 +524,218 @@ display: flex;
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .home-container h1 {
     font-size: 2rem;
   }
-  
+
   .search-form {
     margin: 1rem;
     padding: 1.5rem;
   }
-  
+
   .search-form input {
     width: 100%;
     max-width: 280px;
   }
-  
+
   .search-results {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
-  
+
   .year-results {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
+}
+
+/* migration styles */
+.migration-prompt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.migration-prompt {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.migration-prompt h3 {
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.migration-prompt-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.migrate-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.migrate-btn:hover:not(:disabled) {
+  background-color: #991b1b;
+}
+
+.migrate-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.dismiss-btn {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dismiss-btn:hover {
+  background-color: #4b5563;
+}
+
+.migration-result {
+  text-align: left;
+}
+
+.migration-result h4 {
+  color: #059669;
+  text-align: center;
+}
+
+.migration-result ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.migration-errors {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fef2f2;
+  border-radius: 8px;
+  border-left: 4px solid #f87171;
+}
+
+.migration-error {
+  text-align: center;
+}
+
+.migration-error h4 {
+  color: #dc2626;
+}
+
+/* loading styles */
+.loading-message {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.loading-message p {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.loading-message p::before {
+  content: "⏳";
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* error msg styles */
+.error-message {
+  text-align: center;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #dc2626;
+}
+
+.retry-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.retry-btn:hover {
+  background-color: #991b1b;
+}
+
+/* save btn loading state */
+.save-star.loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.save-star.loading::before {
+  content: "";
+}
+
+/* save btn styles */
+.saved-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.back-btn {
+  display: inline-block;
+  color: #dc2626;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #dc2626;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #dc2626;
+  color: white;
 }
