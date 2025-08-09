@@ -21,55 +21,36 @@ const SavedFighters = () => {
   };
 
   return (
-    <>
-      <NavBar />
-      <div className="saved-page-container">
-        <h1>Saved Fighters</h1>
-        <p className="saved-description">Your collection of favorite fighters</p>
-        
-        {savedFighters.length > 0 && (
-          <div className="saved-controls">
-            <button onClick={clearAllFighters} className="clear-all-btn">
-              Clear All Saved Fighters
-            </button>
-            <span className="saved-count">
-              {savedFighters.length} fighter{savedFighters.length !== 1 ? 's' : ''} saved
-            </span>
-          </div>
-        )}
-
-        {savedFighters.length === 0 ? (
-          <div className="empty-state">
-            <h3>No fighters saved yet</h3>
-            <p>Search for fighters on the home page and save your favorites!</p>
-            <a href="/" className="home-link">Go to Home Page</a>
-          </div>
-        ) : (
-          <div className="saved-results">
-            {savedFighters.map((fighterData, index) => (
-              <div key={index} className="saved-fighter-item">
-                <FighterCard 
-                  img={fighterData["Image Link"]}
-                  name={fighterData.Name} 
-                  nickname={fighterData.Nickname} 
-                  division={fighterData["Division Title"]} 
-                  divisionBody={`${fighterData["Division Body"].Wins}W-${fighterData["Division Body"].Losses}L-${fighterData["Division Body"].Draws}D`}
-                  hometown={fighterData["Fighter Bio"].Hometown} 
-                  height={`Height ${fighterData["Fighter Bio"].Height} in`} 
-                  weight={`Weight ${fighterData["Fighter Bio"].Weight} lbs`} 
-                />
-                <button 
-                  onClick={() => removeFighter(index)}
-                  className="remove-btn"
-                >
-                  Remove from Saved
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
+    <div className="home-container">
+      <h1>Saved Fighters</h1>
+      <p className="p-description">Your favorite fighters</p>
+      
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : fighters.length === 0 ? (
+        <div className="empty-state">
+          <p>No saved fighters yet.</p>
+          <a href="/">Go search for fighters</a>
+        </div>
+      ) : (
+        <div className="search-results">
+          {fighters.map((fighter) => (
+            <FighterCard 
+              key={fighter.id}
+              img=""
+              name={fighter.name}
+              nickname={fighter.nickname}
+              division={fighter.divisionTitle}
+              divisionBody={fighter.divisionBody}
+              hometown={fighter.homeTown}
+              height={`Height ${fighter.height || 0} in`}
+              weight={`Weight ${fighter.weight || 0} lbs`}
+              onRemove={loadFighters}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
