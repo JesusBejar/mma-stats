@@ -1,12 +1,27 @@
-# React + Vite
+# MMA Stats
+# Overview
+{Provide a description the web app that you wrote. Describe how to start a test server on your computer and what website to open up to see the first page of the app.}
+This simple fullstack React/Supabase app calls MMA fighter and fight stats from the [MMA Stats API](https://rapidapi.com/chirikutsikuda/api/mma-stats). A user can see detailed fighter information as well as fights that happened within a calendar year. The user can also save favorite fighters and fights for further analysis. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My purpose was to make a good React app that sports fan could use by myself. I really like MMA so I decided to make the app revolve around it however I could have chosen any sports API. I'm happy to have made the app with more comprehensive than any another React app I've made before :)
 
-Currently, two official plugins are available:
+[Software Demo Video](http://youtube.link.goes.here)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Web Pages
+* Home Page - Where users can search and save specific fighters and fights
+* Saved Fighters - Where saved fighters show up and can be unsaved
+* Saved Fights - Where saved fights show up and can be unsaved
 
-## Expanding the ESLint configuration
+# Development Environment
+My stack was React, Javascript, HTML, CSS (not Tailwind) and Supabase
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Useful Websites
+* [MMA Stats API](https://rapidapi.com/chirikutsikuda/api/mma-stats)
+* [React JS 19 Full Course 2025](https://www.youtube.com/watch?v=dCLhUialKPQ)
+* [How To Create A Navbar In React With Routing](https://www.youtube.com/watch?v=SLfhMt5OUPI&t=663s)
+* [Buster Douglas vs Mike Tyson - Boxing Fight Highlights](https://www.youtube.com/watch?v=1YPEsVHNUlk) (for motivation!)
+
+# Future Work
+* Auth system (I think I will use [Clerk](https://clerk.com/) to make it easy
+* Find and implement a better API (MMA stats API has some missing data)
+* Optimize more for mobile and accessability views
