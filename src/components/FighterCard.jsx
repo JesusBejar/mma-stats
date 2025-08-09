@@ -37,20 +37,25 @@ const FighterCard = ({ img, name, nickname, division, divisionBody, hometown, he
           "Weight": weight.replace('Weight ', '').replace(' lbs', '')
         }
       };
-      savedFighters.push(fighterToSave);
-      localStorage.setItem('savedFighters', JSON.stringify(savedFighters));
-      setIsSaved(true);
+      
+      const { error } = await saveFighter(fighterData);
+      if (!error) {
+        setIsSaved(true);
+      }
     }
+    
+    setIsLoading(false);
   };
  
   return (
     <div className="fighter-card">
       <button 
-        className={`save-star ${isSaved ? 'saved' : ''}`}
+        className={`save-star ${isSaved ? 'saved' : ''} ${isLoading ? 'loading' : ''}`}
         onClick={toggleSave}
-        title={isSaved ? "Remove from saved" : "Save fighter"}
+        disabled={isLoading}
+        title={isLoading ? "Saving..." : (isSaved ? "Remove from saved" : "Save fighter")}
       >
-        ★
+        {isLoading ? "⏳" : ""}
       </button>
       <img src={img} alt={name} />
       <h1>{name}</h1>

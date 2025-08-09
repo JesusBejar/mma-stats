@@ -26,20 +26,23 @@ const YearCard = ({ fighter1, fighter2, date }) => {
         fighter2,
         date
       };
-      savedFights.push(fightToSave);
-      localStorage.setItem('savedFights', JSON.stringify(savedFights));
-      setIsSaved(true);
+      const { error } = await saveFight(fightData);
+      if (!error) {
+        setIsSaved(true);
+      }
     }
+    
+    setIsLoading(false);
   };
 
   return (
     <div className="ufc-fight-card">
       <button 
-        className={`save-star ${isSaved ? 'saved' : ''}`}
+        className={`save-star ${isSaved ? 'saved' : ''} ${isLoading ? 'loading' : ''}`}
         onClick={toggleSave}
-        title={isSaved ? "Remove from saved" : "Save fight"}
+        disabled={isLoading}
+        title={isLoading ? "Saving..." : (isSaved ? "Remove from saved" : "Save fight")}
       >
-        ★
       </button>
       <div className="fight-date">{date}</div>
       <div className="fighter-names">
