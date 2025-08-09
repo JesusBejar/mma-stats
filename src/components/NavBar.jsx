@@ -9,13 +9,13 @@ const NavBar = () => {
             </a>
           </li>
           <li>
-            <a href="/fighters" className="fighters-page">
-              Fighters
+            <a href="/savedFighters" className="fighters-page">
+              Saved Fighters
             </a>
           </li>
           <li>
-            <a href="/events" className="events-page">
-              UFC events
+            <a href="/savedFights" className="events-page">
+              Saved Fights
             </a>
           </li>
         </ul>
